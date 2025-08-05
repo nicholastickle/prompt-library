@@ -15,8 +15,8 @@ You can also start interactive chats with Claude directly from your terminal.
 - [Folder Structure](#folder-structure)
 - [Setup](#setup)
 - [Usage](#usage)
-    - Running Single Prompts
-    - Interactive Chat
+    - [Running Single Prompts](#running-single-prompts)
+    - [Interactive Chat](#interactive-chat)
 - [Writing Prompts](#writing-prompts)
 - [Best Practices for Creating Prompts](#best-practices-for-creating-prompts)
 - [Token Usage](#token-usage)
@@ -153,10 +153,6 @@ Example:
 4. Format: Tell the AI exactly how to structure the response.
 
 Example:
-
-yaml
-
-Copy code
 
 Dish Name:
 
