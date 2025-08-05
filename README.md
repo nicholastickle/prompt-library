@@ -31,6 +31,7 @@ Prompts are stored as Markdown files with **frontmatter metadata**, making them 
 
 ## Folder Structure
 
+```plaintext
 prompt-library/
 ├── prompts/              # All markdown prompt files
 │   ├── random-vegan-dish.md
@@ -42,6 +43,7 @@ prompt-library/
 ├── LICENSE
 ├── package.json
 └── README.md
+```
 
 ---
 
