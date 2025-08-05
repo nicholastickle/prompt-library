@@ -1,0 +1,26 @@
+{
+  "type": "module",
+  "name": "prompt-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholastickle/prompt-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicholastickle/prompt-library/issues"
+  },
+  "homepage": "https://github.com/nicholastickle/prompt-library#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "gray-matter": "^4.0.3",
+    "node-fetch": "^3.3.2"
+  }
+}
