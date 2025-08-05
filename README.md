@@ -6,6 +6,8 @@ A central repository for storing and running reusable prompts from the terminal 
 
 Prompts are stored as Markdown files with **frontmatter metadata**, making them easy to version control and reuse.
 
+You can also start interactive chats with Claude directly from your terminal.
+
 ---
 
 ## Table of Contents
@@ -13,6 +15,8 @@ Prompts are stored as Markdown files with **frontmatter metadata**, making them 
 - [Folder Structure](#folder-structure)
 - [Setup](#setup)
 - [Usage](#usage)
+    - Running Single Prompts
+    - Interactive Chat
 - [Writing Prompts](#writing-prompts)
 - [Best Practices for Creating Prompts](#best-practices-for-creating-prompts)
 - [Token Usage](#token-usage)
@@ -24,6 +28,7 @@ Prompts are stored as Markdown files with **frontmatter metadata**, making them 
 ## Features
 - Store prompts in `prompts/` as `.md` files with **persona, task, context, and format**.
 - Run prompts directly from the terminal.
+- Interactive chat sessions with conversations in memory.
 - Define model, temperature, and other settings per prompt in YAML frontmatter.
 - Token usage statistics after each run.
 - Extensible folder structure.
@@ -38,7 +43,8 @@ prompt-library/
 │   ├── random-vegan-dish.md
 │   └── ...
 ├── scripts/              # Terminal scripts to run prompts
-│   └── run-prompt.js
+│   ├── run-prompt.js     # Single prompt runner
+│   └── chat.js           # Interactive chat
 ├── .env                  # API keys (not committed)
 ├── .gitignore
 ├── LICENSE
@@ -79,7 +85,7 @@ Have a look at the claude version you want to use (see https://docs.anthropic.co
 
 ## Usage
 
-Run a prompt from the terminal:
+### Running Single Prompts
 
 Example:
 
@@ -91,6 +97,26 @@ This will:
 - Send it to Claude API
 - Display the result in the terminal
 - Show token usage
+
+### Interactive Chat
+
+Start a conversational chat session with Claude:
+
+node scripts/chat.js
+
+This will:
+
+- Start an interactive terminal chat.
+- Maintain conversation history throughout the session.
+- Allow you to have back-and-forth conversations with Claude.
+
+Chat commands:
+
+quit - Exit the chat
+
+clear - Clear conversation history and start fresh
+
+The chat maintains context, so Claude will remember everything you've discussed during the session. Once the session is ended, claude will no longer remember the chat.
 
 ---
 
@@ -125,13 +151,19 @@ Example:
 "Use only ingredients available in most UK supermarkets. Keep prep time under 30 minutes."
 
 4. Format: Tell the AI exactly how to structure the response.
+
 Example:
 
 yaml
+
 Copy code
+
 Dish Name:
+
 Description:
+
 Ingredients (bullet list):
+
 Instructions (numbered list):
 
 Extra Tips:
@@ -160,6 +192,8 @@ Example:
 - Input tokens: XXX
 - Output tokens: XXX
 - Total tokens: XXX
+
+Note: The interactive chat feature does not display token usage to keep the conversation clean and focused.
 
 ---
 
