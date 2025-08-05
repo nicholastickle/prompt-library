@@ -2,12 +2,13 @@
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
-A central repository for storing and running reusable prompts from the terminal using the Claude API.  
+A central repository for storing and running reusable prompts from the terminal using the Claude API.
+
 Prompts are stored as Markdown files with **frontmatter metadata**, making them easy to version control and reuse.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 - [Features](#features)
 - [Folder Structure](#folder-structure)
 - [Setup](#setup)
@@ -49,28 +50,28 @@ prompt-library/
 
 ## Setup
 
-1. Clone the repo
+### 1. Clone the repo:
 
 git clone git@github.com:nicholastickle/prompt-library.git
 cd prompt-library
 
 
-2. Install dependencies
+### 2. Install dependencies:
 
 npm install
 
-3. Add your Anthropic API key
+### 3. Add your Anthropic API key
 
 Create a .env file in the project root:
 ANTHROPIC_API_KEY=your_api_key_here
 
 If you don't have an Anthropic API, check out here (https://console.anthropic.com/). FYI, when using the API you use up tokens. Which is not the same as the browser version.
 
-4. Check .gitignore
+### 4. Check .gitignore
 
 Make sure .env is listed so secrets are not committed.
 
-5. Check Claude version
+### 5. Check Claude version
 
 Have a look at the claude version you want to use (see https://docs.anthropic.com/en/docs/about-claude/models/overview). Add the version to the .md prompt file to match the exact version seen online. The default version for this app is "claude-3-5-haiku-latest" which is used in the script if you don't specify a model.
 
@@ -80,9 +81,8 @@ Have a look at the claude version you want to use (see https://docs.anthropic.co
 
 Run a prompt from the terminal:
 
-node scripts/run-prompt.js <prompt-name>
+Example:
 
-Example
 node scripts/run-prompt.js random-vegan-dish
 
 This will:
@@ -140,8 +140,11 @@ Extra Tips:
 - Keep prompts specific but concise (aim for ~20–25 words).
 - Iterate — tweak prompts and re-run if results aren’t right.
 - Assign temperature:
+
 0.0 → precise, repeatable outputs (good for coding/math)
+
 0.7 → creative, varied outputs (good for recipes/ideas)
+
 - If doing multiple tasks, split them into separate prompts.
 - Add constraints like word count, tone, or number of options.
 - Ask for feedback — let the AI suggest clarifying questions.
@@ -154,9 +157,9 @@ After running a prompt, you’ll see:
 
 Example:
 
-Input tokens: 123
-Output tokens: 456
-Total tokens: 579
+- Input tokens: XXX
+- Output tokens: XXX
+- Total tokens: XXX
 
 ---
 
