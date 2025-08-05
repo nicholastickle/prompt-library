@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
+import fs from 'fs';
 import readline from 'readline';
 import fetch from 'node-fetch';
+import matter from 'gray-matter';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,7 +14,8 @@ if (!process.env.ANTHROPIC_API_KEY) {
     process.exit(1);
 }
 
-// Configuration
+// Default Configuration. This gets replaced if a model and temperature is specified in the standard prompt .md files.
+
 const CONFIG = {
     model: "claude-3-5-haiku-latest",
     max_tokens: 1000,
@@ -28,8 +31,31 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-// Function to send message to Claude API
-async function sendMessage(userInput) {
+// Function to load and parse prompt file
+function loadPrompt(promptName) {
+    const filePath = `./prompts/${promptName}.md`;
+
+    if (!fs.existsSync(filePath)) {
+        return { error: `❌ Prompt file not found: ${promptName}.md` };
+    }
+
+    try {
+        const fileContent = fs.readFileSync(filePath, 'utf8');
+        const { data: meta, content: promptText } = matter(fileContent);
+
+        return {
+            meta: meta,
+            content: promptText.trim(),
+            model: meta.model || CONFIG.model,
+            temperature: meta.temperature || CONFIG.temperature
+        };
+    } catch (error) {
+        return { error: `❌ Error reading prompt file: ${error.message}` };
+    }
+}
+
+// Function to send message to Claude API (with optional custom settings)
+async function sendMessage(userInput, customModel = null, customTemperature = null) {
     // Add user message to history
     messages.push({ role: "user", content: userInput });
 
@@ -42,9 +68,9 @@ async function sendMessage(userInput) {
                 "anthropic-version": "2023-06-01"
             },
             body: JSON.stringify({
-                model: CONFIG.model,
+                model: customModel || CONFIG.model,
                 max_tokens: CONFIG.max_tokens,
-                temperature: CONFIG.temperature,
+                temperature: customTemperature || CONFIG.temperature,
                 messages: messages // Send entire conversation history
             })
         });
@@ -76,6 +102,7 @@ async function startChat() {
     console.log("🤖 Claude Terminal Chat");
     console.log("Type 'quit' to exit");
     console.log("Type 'clear' to clear message history");
+    console.log("Type 'prompt [name]' to load a prompt from the prompts folder");
     console.log("─".repeat(50));
 
     const askQuestion = () => {
@@ -95,6 +122,38 @@ async function startChat() {
                 console.log("🧹 Message history cleared!");
                 askQuestion();
                 return;
+            }
+
+            // Handle prompt command
+            if (trimmedInput.toLowerCase().startsWith('prompt ')) {
+                const promptName = trimmedInput.slice(7).trim(); // Remove "prompt " prefix
+
+                if (!promptName) {
+                    console.log("❌ Please provide a prompt name. Example: prompt random-vegan-dish");
+                    askQuestion();
+                    return;
+                }
+
+                console.log(`📄 Loading prompt: ${promptName}...`);
+                const promptData = loadPrompt(promptName);
+
+                if (promptData.error) {
+                    console.log(promptData.error);
+                    askQuestion();
+                    return;
+                }
+
+                console.log("⏳ Thinking...");
+                const response = await sendMessage(promptData.content, promptData.model, promptData.temperature);
+
+                if (response) {
+                    askQuestion(); // Continue the conversation
+                } else {
+                    console.log("❌ Failed to get response. Try again or type 'quit' to exit.");
+                    askQuestion();
+                }
+                return;
+
             }
 
             // Handle empty input

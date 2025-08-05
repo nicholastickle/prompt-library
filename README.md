@@ -4,9 +4,9 @@
 
 A central repository for storing and running reusable prompts from the terminal using the Claude API.
 
-Prompts are stored as Markdown files with **frontmatter metadata**, making them easy to version control and reuse.
+You start off with a simple interactive chat with Claude. You can then inject any saved prompts into the chat as and when you need them. You can then continue to chat with Claude with the info from the prompt now added to the chat.
 
-You can also start interactive chats with Claude directly from your terminal.
+Prompts are stored as Markdown files with **frontmatter metadata**, making them easy to version control and reuse.
 
 ---
 
@@ -15,8 +15,6 @@ You can also start interactive chats with Claude directly from your terminal.
 - [Folder Structure](#folder-structure)
 - [Setup](#setup)
 - [Usage](#usage)
-    - [Running Single Prompts](#running-single-prompts)
-    - [Interactive Chat](#interactive-chat)
 - [Writing Prompts](#writing-prompts)
 - [Best Practices for Creating Prompts](#best-practices-for-creating-prompts)
 - [Token Usage](#token-usage)
@@ -27,10 +25,10 @@ You can also start interactive chats with Claude directly from your terminal.
 
 ## Features
 - Store prompts in `prompts/` as `.md` files with **persona, task, context, and format**.
-- Run prompts directly from the terminal.
+- Interactive chat sessions in the terminal with conversations stored in an array.
+- Run saved prompts directly from the terminal within the chat.
 - Interactive chat sessions with conversations in memory.
 - Define model, temperature, and other settings per prompt in YAML frontmatter.
-- Token usage statistics after each run.
 - Extensible folder structure.
 
 ---
@@ -42,8 +40,7 @@ prompt-library/
 ├── prompts/              # All markdown prompt files
 │   ├── random-vegan-dish.md
 │   └── ...
-├── scripts/              # Terminal scripts to run prompts
-│   ├── run-prompt.js     # Single prompt runner
+├── scripts/              # Terminal scripts
 │   └── chat.js           # Interactive chat
 ├── .env                  # API keys (not committed)
 ├── .gitignore
@@ -85,21 +82,6 @@ Have a look at the claude version you want to use (see https://docs.anthropic.co
 
 ## Usage
 
-### Running Single Prompts
-
-Example:
-
-node scripts/run-prompt.js random-vegan-dish
-
-This will:
-
-- Load the .md file from /prompts
-- Send it to Claude API
-- Display the result in the terminal
-- Show token usage
-
-### Interactive Chat
-
 Start a conversational chat session with Claude:
 
 node scripts/chat.js
@@ -116,6 +98,8 @@ quit - Exit the chat
 
 clear - Clear conversation history and start fresh
 
+prompt [promptName] - Injects the saved .md prompt file into the existing chat that has been started. Example: prompt random-vegan-dish
+
 The chat maintains context, so Claude will remember everything you've discussed during the session. Once the session is ended, claude will no longer remember the chat.
 
 ---
@@ -128,6 +112,8 @@ Prompts use YAML frontmatter + Markdown body:
 - description – short explanation of the prompt
 - model – Claude model (e.g., claude-3-5-haiku-latest)
 - temperature – creativity level (0 = precise, 1 = creative)
+
+Make sure your prompts follow the above template. Prompts are to be stored in the prompts/ folder with the .md extension. Again, have a look at the claude version you want to use (see https://docs.anthropic.com/en/docs/about-claude/models/overview). Add the version to the .md prompt file to match the exact version seen online. The default version for this app is "claude-3-5-haiku-latest" which is used in the script if you don't specify a model.
 
 ---
 
@@ -181,15 +167,7 @@ Extra Tips:
 
 ## Token Usage
 
-After running a prompt, you’ll see:
-
-Example:
-
-- Input tokens: XXX
-- Output tokens: XXX
-- Total tokens: XXX
-
-Note: The interactive chat feature does not display token usage to keep the conversation clean and focused.
+The interactive chat feature does not display token usage to keep the conversation clean and focused. Its suggested that you keep an eye on your token usage or set limits to token usage at https://console.anthropic.com/
 
 ---
 
