@@ -43,7 +43,7 @@ async function runPrompt() {
       "anthropic-version": "2023-06-01"
     },
     body: JSON.stringify({
-      model: meta.model || "claude-3-5-haiku-latest",
+      model: meta.model || "claude-3-5-haiku-latest", // Use model from frontmatter or fallback default
       max_tokens: 500,
       temperature: meta.temperature || 0.7,
       messages: [
