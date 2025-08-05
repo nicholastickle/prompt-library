@@ -8,18 +8,19 @@ Prompts are stored as Markdown files with **frontmatter metadata**, making them 
 ---
 
 ## 📑 Table of Contents
-- [Features](#-features)
-- [Folder Structure](#-folder-structure)
-- [Setup](#️-setup)
-- [Usage](#-usage)
-- [Writing Prompts](#-writing-prompts)
-- [Token Usage](#-token-usage)
-- [Security](#-security)
-- [License](#-license)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Writing Prompts](#writing-prompts)
+- [Best Practices for Creating Prompts](#best-practices-for-creating-prompts)
+- [Token Usage](#token-usage)
+- [Security](#security)
+- [License](#license)
 
 ---
 
-## ✨ Features
+## Features
 - Store prompts in `prompts/` as `.md` files with **persona, task, context, and format**.
 - Run prompts directly from the terminal.
 - Define model, temperature, and other settings per prompt in YAML frontmatter.
@@ -28,8 +29,8 @@ Prompts are stored as Markdown files with **frontmatter metadata**, making them 
 
 ---
 
-## 📂 Folder Structure
-```plaintext
+## Folder Structure
+
 prompt-library/
 ├── prompts/              # All markdown prompt files
 │   ├── random-vegan-dish.md
@@ -44,7 +45,7 @@ prompt-library/
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 1. Clone the repo
 
@@ -73,7 +74,7 @@ Have a look at the claude version you want to use (see https://docs.anthropic.co
 
 ---
 
-## ▶️ Usage
+## Usage
 
 Run a prompt from the terminal:
 
@@ -91,7 +92,7 @@ This will:
 
 ---
 
-## 📝 Writing Prompts
+## Writing Prompts
 
 Prompts use YAML frontmatter + Markdown body:
 
@@ -102,7 +103,7 @@ Prompts use YAML frontmatter + Markdown body:
 
 ---
 
-## 🌟 Best Practices for Creating Prompts
+## Best Practices for Creating Prompts
 
 To get the best results from Claude (or any LLM), follow this structure:
 
@@ -145,7 +146,7 @@ Extra Tips:
 
 ---
 
-## 📊 Token Usage
+## Token Usage
 
 After running a prompt, you’ll see:
 
@@ -157,7 +158,7 @@ Total tokens: 579
 
 ---
 
-## 🔒 Security
+## Security
 
 - Never commit .env to GitHub.
 - Keep the repo private if your prompts are sensitive.
@@ -165,7 +166,7 @@ Total tokens: 579
 
 ---
 
-## 📜 License
+## License
 
 This project is licensed under the MIT License.
 
